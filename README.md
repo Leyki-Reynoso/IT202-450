@@ -1,3 +1,5 @@
-1. IT202-450
-2. Leyki Reynoso jr
-3. I like some things and don't like other things
+# IT202-450
+
+## Leyki Reynoso jr
+
+### I like some stuff and this dislike other stuff
