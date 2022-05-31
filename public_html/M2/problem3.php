@@ -8,9 +8,16 @@ function bePositive($arr) {
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
     echo "<br>Positive output:<br>";
     //TODO use echo to output all of the values as positive (even if they were originally positive)
+    $count = 0;
     foreach ($arr as $a)
     {
-        echo abs(floatval($a)).", ";
+        if($count == 0)
+        {
+            echo ", ". abs(floatval($a));
+            $count = 1;
+            continue;
+        }
+        echo ", ". abs(floatval($a));
         
     }
 }
