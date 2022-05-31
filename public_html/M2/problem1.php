@@ -12,7 +12,7 @@ function processArray($arr) {
     {
         if ($a%2 !=0)
         {
-            echo $a;
+            echo $a.", ";
         }
     }
 }

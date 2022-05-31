@@ -10,7 +10,8 @@ function bePositive($arr) {
     //TODO use echo to output all of the values as positive (even if they were originally positive)
     foreach ($arr as $a)
     {
-        echo abs(floatval($a));
+        echo abs(floatval($a)).", ";
+        
     }
 }
 echo "Problem 3: Be Positive<br>";
