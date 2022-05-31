@@ -13,7 +13,7 @@ function getTotal($arr) {
     }
     //TODO do rounding stuff here
     $total = round($total);
-    echo "The total is " . var_export(round($total), true);
+    echo "The total is " . var_export($total, true);
 }
 echo "Problem 2: Adding Floats<br>";
 ?>
