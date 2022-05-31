@@ -15,7 +15,7 @@ function bePositive($arr) {
         {
             echo abs(floatval($a));
             $count = 1;
-            continue;
+            continue
         }
         echo ", ". abs(floatval($a));
         
