@@ -8,19 +8,27 @@
         window.addEventListener("load", () => {
             console.log("loaded via javascript");
             //TODO: add any extra onload processing you may need here
+            updateCurrentPage("login");
+
+        });
+        window.addEventListener("click", (e) => {
+            var targetUrl = e.target.href
+            if(targetUrl != undefined)
+            {
+                var targetUrl = targetUrl.split('#');
+                var target = targetUrl[targetUrl.length-1];
+                updateCurrentPage(target);
+                document.title = target;
+            }
         });
         function getCurrentSelection() {
             setTimeout(() => {
                 //added this delay here as some solutions may require it to update properly (i.e., click code may complete before the navigation changes)
                 //TODO: add code for processing the current selection 
-                if(document.querySelectorAll('[href = "login"]'). clicked == true)
-                {
-                    updateCurrentPage("login");
-                }
                 //Note: likely you'll want to call updateCurrentPage towards the end
             }, 100);
         }
-    </script>
+    </script> 
     <style>
         /* TODO: make edits here */
         nav ul li{
