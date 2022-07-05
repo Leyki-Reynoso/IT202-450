@@ -25,8 +25,24 @@ reset_session();
     function validate(form) {
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
-
-        return true;
+        let pw = form.newPassword.value;
+        let isValid = True;
+        if (!epattern.test(form.elements["email"].value))
+        {
+            flash("You have entered an invalid email", "warning");
+            isValid = false;
+        }
+        if(!upattern.test(form.elements["email"].value))
+        {
+            flash("You have entered an invalid username", "warning");
+            isValid = false;
+        }
+        if(pw.length < 8)
+        {
+            flash("password must be atleast 8 characters long","warning");
+            isValid = false;
+        }
+        return isValid;
     }
 </script>
 <?php

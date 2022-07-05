@@ -117,7 +117,24 @@ $username = get_username();
         let con = form.confirmPassword.value;
         let isValid = true;
         //TODO add other client side validation....
-
+        function validate(form) {
+        upattern = /^[a-z0-9_-]{3,16}$/;
+        epattern = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+        if (!epattern.test(form.elements["email"].value))
+        {
+            flash("You have entered an invalid email", "warning");
+            isValid = false;
+        }
+        if(!upattern.test(form.elements["email"].value))
+        {
+            flash("You have entered an invalid username", "warning");
+            isValid = false;
+        }
+        if(pw.length < 8)
+        {
+            flash("password must be atleast 8 characters long","warning");
+            isValid = false;
+        }
         //example of using flash via javascript
         //find the flash container, create a new element, appendChild
         if (pw !== con) {
