@@ -25,11 +25,11 @@
       -  Link to related .md file: [Link Name](link url)
   - [X] \(07/02/2022 of completion) Basic security rules implemented
       -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Basic Roles implemented
+  - [X] \(07/05/2022 of completion) Basic Roles implemented
       -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Site should have basic styles/theme applied; everything should be styled
+  - [X] \(07/05/2022 of completion) Site should have basic styles/theme applied; everything should be styled
       -  Link to related .md file: [Link Name](link url)
-  - [ ] \(mm/dd/yyyy of completion) Any output messages/errors should be “user friendly”
+  - [X] \(07/05/2022 of completion) Any output messages/errors should be “user friendly”
       -  Link to related .md file: [Link Name](link url)
   - [X] \(07/03/2022 of completion)User will be able to see their profile
       -  Link to related .md file: [Link Name](link url)
