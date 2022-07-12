@@ -60,12 +60,24 @@ class Enemy{
         this.y = this.y + this.velocity.y
     }
 }
-
+let animationId
+let score = 0
+function save(){
+    var xmlhttp = new XMLHttpRequest()
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            confirm("submitted")
+        }
+    }
+    xmlhttp.open("POST", "save_scores.php?q="+toString(score), true)
+    xmlhttp.send()
+}
 function gameOver(){
     context.fillStyle = '#000000';
     context.font = '24px Arial';
     context.textAlign = 'center';
-    context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height/4);
+    context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height/4)
+    save()
 }
 
 const player = new Player(canvas.width/2, canvas.height/2,30,'red')
@@ -94,8 +106,7 @@ function spawnEnemies(){
         enemies.push(new Enemy(x, y, radius, color, velocity))
     }, 1000)
 }
-let animationId
-let score = 0
+
 
 function animate()
 { 
