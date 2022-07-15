@@ -68,9 +68,7 @@ function save(){
         method: "POST",
         url: "save_scores.php",
         data: { text: score}
-      }).done(function( response ) {
-        confirm("successfully saved");
-      });
+      })
 }
 function gameOver(){
     context.fillStyle = '#000000'

@@ -56,6 +56,14 @@ body{
     background: linear-gradient(180deg, #2bff00, #bcffaf);
     color: rgb(57, 57, 58);
 }
+#profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
 form{
     display: flex;
     flex-direction: column;
@@ -64,7 +72,12 @@ form{
     height: 100%;
     width: 100%;
 }
-
+#scores{
+    display: flex;
+    flex-direction: inline;
+    justify-content: center;
+    align-items: center;
+}
 input[type="text"], input[type="password"], input[type="email"]{
     font-size: 16px;
     outline: none;
