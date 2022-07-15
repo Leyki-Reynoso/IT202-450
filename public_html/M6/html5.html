@@ -54,6 +54,7 @@
         var enemySpeed = Math.round(Math.random() * enemyBaseSpeed) + enemyBaseSpeed;
         enemies.push(makeSquare(enemyX, enemyY, enemySize, enemySpeed));
         }
+        //lr22 07/06/2022
         //creates a collectabe box.
         function makeBox() {
         var BoxX = Math.round(Math.random() * canvas.width - boxSize);
@@ -101,12 +102,14 @@
 
         // Start the game
         function startGame() {
-            // Kick off the enemy spawn interval
+        // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
-        //interval btween colletables
-        timeoutId = setInterval(makeBox, timeBetweenEnemies*3);
         // Make the first enemy
         setTimeout(makeEnemy, 1000);
+        //lr22 07/06/2022
+        //interval btween colletables
+        timeoutId = setInterval(makeBox, timeBetweenEnemies*3);
+
         //Make first box
         setTimeout(makeBox, 1000);
         // Kick off the draw loop
@@ -160,10 +163,18 @@
             context.fillStyle = 'orange';
             enemy.draw();
         });
+        //lr22 07/06/2022
         //draw the boxes
         boxes.forEach(function(box){
             context.fillStyle = 'green';
             box.draw();
+        });
+        //box collisions with player
+        boxes.forEach(function(box,i){
+            if(isColliding(box, ship)){
+            boxes.splice(i, 1);
+            score += 1;
+            }
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
@@ -171,17 +182,15 @@
             gameOver = true;
             }
         });
-        boxes.forEach(function(box,i){
-            if(isColliding(box, ship)){
-            boxes.splice(i, 1);
-            score += 1;
-            }
-        });
-        // Don't go out of bounds
+
+        // lr22 07/06/2022
+        //movement
         if (down) {ship.y += ship.s;}
         if (up) {ship.y -= ship.s;}
         if (right) {ship.x += ship.s;}
         if (left) {ship.x -= ship.s;}
+
+        //avoid ship from going out of bounds
         if (ship.y < 0) {ship.y = 0;}
         if (ship.x < 0) {ship.x = 0;}
         if (ship.y > canvas.height - ship.l) {ship.y = canvas.height - ship.l;}

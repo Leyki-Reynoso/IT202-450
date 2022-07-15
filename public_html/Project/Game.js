@@ -63,19 +63,19 @@ class Enemy{
 let animationId
 let score = 0
 function save(){
-    var xmlhttp = new XMLHttpRequest()
-    xmlhttp.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            confirm("submitted")
-        }
-    }
-    xmlhttp.open("POST", "save_scores.php?q="+toString(score), true)
-    xmlhttp.send()
+    username = '@Session["UserName"]';
+    $.ajax({
+        method: "POST",
+        url: "save_scores.php",
+        data: { text: score}
+      }).done(function( response ) {
+        confirm("successfully saved");
+      });
 }
 function gameOver(){
-    context.fillStyle = '#000000';
-    context.font = '24px Arial';
-    context.textAlign = 'center';
+    context.fillStyle = '#000000'
+    context.font = '24px Arial'
+    context.textAlign = 'center'
     context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height/4)
     save()
 }
@@ -98,11 +98,12 @@ function spawnEnemies(){
         }
         else{
             x = Math.random() * canvas.width
-            y = Math.random() < 0.5 ? 0 - radius : canvas, height + radius
+            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
         }
         const color = 'green'
         const angle = Math.atan2(player.y - y, player.x - x)
-        const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
+        const mult = 10
+        const velocity = {x: mult*Math.cos(angle), y: mult*Math.sin(angle)}
         enemies.push(new Enemy(x, y, radius, color, velocity))
     }, 1000)
 }
