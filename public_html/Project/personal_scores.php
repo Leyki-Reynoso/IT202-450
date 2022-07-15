@@ -7,7 +7,7 @@
 <?php
     $db = getDB();
     $params = [":user_id" => get_user_id()];
-    $stmt = $db->prepare("SELECT score FROM Scores WHERE   ORDER BY created DESC LIMIT 10");
+    $stmt = $db->prepare("SELECT score FROM Scores ORDER BY created DESC LIMIT 10");
     $stmt->execute($params);
     if($row = $stmt->fetch())
     {
