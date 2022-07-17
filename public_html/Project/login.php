@@ -1,6 +1,7 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 ?>
+<div id = "profile">
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email/Username</label>
@@ -114,5 +115,6 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     }
 }
 ?>
+</div>
 <?php
 require(__DIR__ . "/../../partials/flash.php");

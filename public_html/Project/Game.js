@@ -100,7 +100,7 @@ function spawnEnemies(){
         }
         const color = 'green'
         const angle = Math.atan2(player.y - y, player.x - x)
-        const mult = 10
+        const mult = 2
         const velocity = {x: mult*Math.cos(angle), y: mult*Math.sin(angle)}
         enemies.push(new Enemy(x, y, radius, color, velocity))
     }, 1000)
@@ -140,7 +140,8 @@ function animate()
 
 addEventListener('click', (event) => {
     const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)
-    const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
+    const mult = 4;
+    const velocity = {x: mult*Math.cos(angle), y: mult*Math.sin(angle)}
     projectiles.push(new Projectile(player.x,player.y, 5, 'orange', velocity))
 })
 
