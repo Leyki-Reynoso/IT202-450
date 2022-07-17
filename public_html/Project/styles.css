@@ -51,16 +51,17 @@ form div{
     border-radius: 5px;;
 }
 body{
-    height: 90vh;
+    height: 100%;
     width: 100%;
-    background: linear-gradient(180deg, #2bff00, #bcffaf);
     color: rgb(57, 57, 58);
+    background: linear-gradient(180deg, #2bff00, #bcffaf);
 }
 #profile{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(180deg, #2bff00, #bcffaf);
     height: 100%;
     width: 100%;
 }
@@ -83,7 +84,7 @@ input[type="text"], input[type="password"], input[type="email"]{
     outline: none;
     border: none;
     width: 200px;
-    height:30px;
+    height: 30px;
 }
 
 input[type="submit"]{
@@ -91,7 +92,7 @@ input[type="submit"]{
     outline: none;
     border: none;
     width: 100px;
-    height:30px;
+    height: 30px;
     background-color: black;
     color: white;
 }

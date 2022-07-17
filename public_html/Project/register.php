@@ -2,6 +2,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 reset_session();
 ?>
+<div id = "profile">
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
@@ -101,6 +102,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
     }
 }
 ?>
+</div>
 <?php
 require(__DIR__ . "/../../partials/flash.php");
 ?>
