@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 ?>
 <?php
-if (isset($_POST["save"])) {
+if (isset($_POST["save"])){
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
 
@@ -81,36 +81,62 @@ if (isset($_POST["save"])) {
 }
 ?>
 
+
 <?php
 $email = get_user_email();
 $username = get_username();
 ?>
-<form method="POST" onsubmit="return validate(this);">
-    <div class="mb-3">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+<div id = "profile">
+    <form method="POST" onsubmit="return validate(this);">
+        <div class="mb-3">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="<?php se($email); ?>" />
+        </div>
+        <div class="mb-3">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" value="<?php se($username); ?>" />
+        </div>
+        <!-- DO NOT PRELOAD PASSWORD -->
+        <div class="mb-3">
+            <label for="cp">Current Password</label>
+            <input type="password" name="currentPassword" id="cp" />
+        </div>
+        <div class="mb-3">
+            <label for="np">New Password</label>
+            <input type="password" name="newPassword" id="np" />
+        </div>
+        <div class="mb-3">
+            <label for="conp">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="conp" />
+        </div>
+        <input type="submit" value="Update Profile" name="save" />
+    </form>
+    
+    <h1 id = "scores">Scores</h1>
+    <div id = "scores">
+        <?php
+            $db = getDB();
+            $params = [":user_id" => get_user_id()];
+            $stmt = $db->prepare("SELECT score FROM Scores WHERE user_id = :user_id  ORDER BY created DESC LIMIT 10");
+            $stmt->execute($params);
+            if($row = $stmt->fetch())
+            {
+                if($row == null){
+                flash("no scores to display", "success");
+                }
+                else{
+                    $name = $row['score'];
+                    echo "$name<br>";
+                }
+            }
+            while($row = $stmt->fetch())
+            {
+                $name = $row['score'];
+                echo "$name<br>";
+            }
+        ?>
     </div>
-    <div class="mb-3">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php se($username); ?>" />
-    </div>
-    <!-- DO NOT PRELOAD PASSWORD -->
-    <div>Password Reset</div>
-    <div class="mb-3">
-        <label for="cp">Current Password</label>
-        <input type="password" name="currentPassword" id="cp" />
-    </div>
-    <div class="mb-3">
-        <label for="np">New Password</label>
-        <input type="password" name="newPassword" id="np" />
-    </div>
-    <div class="mb-3">
-        <label for="conp">Confirm Password</label>
-        <input type="password" name="confirmPassword" id="conp" />
-    </div>
-    <input type="submit" value="Update Profile" name="save" />
-</form>
-
+</div>
 <script>
     function validate(form) {
         let pw = form.newPassword.value;

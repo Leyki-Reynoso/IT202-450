@@ -60,12 +60,24 @@ class Enemy{
         this.y = this.y + this.velocity.y
     }
 }
-
+let animationId
+let score = 0
+function save(){
+    username = '@Session["UserName"]';
+    $.ajax({
+        method: "POST",
+        url: "save_scores.php",
+        data: { text: score}
+      }).done(function() {
+        confirm("Score saved");
+      });
+}
 function gameOver(){
-    context.fillStyle = '#000000';
-    context.font = '24px Arial';
-    context.textAlign = 'center';
-    context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height/4);
+    context.fillStyle = '#000000'
+    context.font = '24px Arial'
+    context.textAlign = 'center'
+    context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height/4)
+    save()
 }
 
 const player = new Player(canvas.width/2, canvas.height/2,30,'red')
@@ -86,16 +98,16 @@ function spawnEnemies(){
         }
         else{
             x = Math.random() * canvas.width
-            y = Math.random() < 0.5 ? 0 - radius : canvas, height + radius
+            y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
         }
         const color = 'green'
         const angle = Math.atan2(player.y - y, player.x - x)
-        const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
+        const mult = 2
+        const velocity = {x: mult*Math.cos(angle), y: mult*Math.sin(angle)}
         enemies.push(new Enemy(x, y, radius, color, velocity))
     }, 1000)
 }
-let animationId
-let score = 0
+
 
 function animate()
 { 
@@ -130,7 +142,8 @@ function animate()
 
 addEventListener('click', (event) => {
     const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)
-    const velocity = {x: Math.cos(angle), y: Math.sin(angle)}
+    const mult = 4;
+    const velocity = {x: mult*Math.cos(angle), y: mult*Math.sin(angle)}
     projectiles.push(new Projectile(player.x,player.y, 5, 'orange', velocity))
 })
 

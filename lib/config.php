@@ -26,5 +26,5 @@ if (!$db_url || count($db_url) === 0) {
 $dbhost   = $db_url["host"];
 $dbuser = $db_url["user"];
 $dbpass = $db_url["pass"];
-$dbdatabase       = substr($db_url["path"],1);
+$dbdatabase = substr($db_url["path"],1);
 ?>
