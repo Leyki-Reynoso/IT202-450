@@ -36,12 +36,24 @@
   - [X] \(07/03/2022 of completion) User will be able to edit their profile
       -  Link to related .md file: [Link Name](link url)
 - Milestone 2
-  - (duplicate template here for Milestone 1 features)
+  - [X] \(07/17/2022 of completion) What game will you be doing?
+        [asteroids simplified]
+        Briefly describe it.
+        [you are in the middle of the screen and you shoot circles that come your way]
+  - [X] \(07/01/2022 of completion) The system will save the user’s score at the end of the game only if the user is logged in
+      -  Link to related .md file: [Link Name](link url)
+  - [X] \(07/17/2022 of completion) The user will be able to see their latest 10 scores
+      -  Link to related .md file: [Link Name](link url)
+  - [X] \(07/17/2022 of completion) Create function(s) that output the following scoreboards
+      -  Link to related .md file: [Link Name](link url)
+  - [X] \(07/17/2022 of completion) Create a Homepage (i.e., index.php)
+      -  Link to related .md file: [Link Name](link url)
 - Milestone 3
   - (duplicate template here for Milestone 1 features)
 - Milestone 4
   - (duplicate template here for Milestone 1 features)
-  - 
+
+
 ### Intructions
 #### Don't delete this
 1. Pick one project type

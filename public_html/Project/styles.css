@@ -39,7 +39,27 @@ li a:hover{
     color: black;
     transition-delay: 0ms;
 }
+#profile li{
+    background-color: black;
+    height: 50px;
+}
+div li{
+    list-style-type: none;
+    width: 100px;
+    float: left;
+    text-align: center;
+}
+#profile p{
+    font-size: 20px;
+}
+div li a{
+    text-decoration: none;
+    color: white;
+    line-height: 50px;
+    display: block;
+    transition: 250ms background-color;
 
+}
 form div{
     padding: 20px 10px 10px 15px;
     display: flex;

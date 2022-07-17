@@ -12,16 +12,21 @@
         else{
             scoreBoard('life');
         }
+        //lr22 07/17/2022
         function scoreBoard($scoreType){
             $db = getDB();
             $params = [":user_id" => get_user_id()];
             if($scoreType == 'week')
             {
-                $stmt = $db->prepare("SELECT score, created FROM Scores WHERE created between date_sub(now(),INTERVAL 1 WEEK) and now() ORDER BY score DESC LIMIT 10");
+                $stmt = $db->prepare("SELECT score, created FROM Scores 
+                WHERE created between date_sub(now(),INTERVAL 1 WEEK) and now() 
+                ORDER BY score DESC LIMIT 10");
             }
             else if($scoreType == 'month')
             {
-                $stmt = $db->prepare("SELECT score, created FROM Scores WHERE created between date_sub(now(),INTERVAL 1 MONTH) and now() ORDER BY score DESC LIMIT 10");
+                $stmt = $db->prepare("SELECT score, created FROM Scores 
+                WHERE created between date_sub(now(),INTERVAL 1 MONTH) and now() 
+                ORDER BY score DESC LIMIT 10");
             }
             else if($scoreType == 'life')
             {
