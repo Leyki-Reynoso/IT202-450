@@ -17,15 +17,15 @@
             $params = [":user_id" => get_user_id()];
             if($scoreType == 'week')
             {
-                $stmt = $db->prepare("SELECT score, created FROM Scores where created between date_sub(now(),INTERVAL 1 WEEK) and now() ORDER BY created DESC LIMIT 10");
+                $stmt = $db->prepare("SELECT score, created FROM Scores WHERE created between date_sub(now(),INTERVAL 1 WEEK) and now() ORDER BY score DESC LIMIT 10");
             }
             else if($scoreType == 'month')
             {
-                $stmt = $db->prepare("SELECT score, created FROM Scores where created between date_sub(now(),INTERVAL 1 WEEK) and now() ORDER BY created DESC LIMIT 10");
+                $stmt = $db->prepare("SELECT score, created FROM Scores WHERE created between date_sub(now(),INTERVAL 1 MONTH) and now() ORDER BY score DESC LIMIT 10");
             }
             else if($scoreType == 'life')
             {
-                $stmt = $db->prepare("SELECT score, created FROM Scores ORDER BY created DESC LIMIT 10");
+                $stmt = $db->prepare("SELECT score, created FROM Scores ORDER BY score DESC LIMIT 10");
             }
             $stmt->execute();
             echo "Date created".str_repeat('&nbsp;', 24)."Scores <br><br>";

@@ -10,7 +10,7 @@
 <p>shoot with your mouse to kill the enemies that come from outside the screen</p>
 
 <li><a href="<?php echo get_url('Game.html'); ?>">play</a></li>
-<li><a href="<?php echo get_url('personal_scores.php'); ?>">scores</a></li>
+<li><a href="<?php echo get_url('scoreboard.php'); ?>">scores</a></li>
 
 
 </body>
