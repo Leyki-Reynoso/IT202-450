@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Passing $redirect as true will auto redirect a logged out user to the $destination.
  * The destination defaults to login.php
