@@ -49,7 +49,24 @@
   - [X] \(07/17/2022 of completion) Create a Homepage (i.e., index.php)
       -  Link to related .md file: [Link Name](link url)
 - Milestone 3
-  - (duplicate template here for Milestone 1 features)
+  - [ ] \(07/01/2022 of completion) Users will have credits associated with their account.
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/01/2022 of completion) Create a CreditsHistory table (id, user_id, credit_diff, reason, created, modified)
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/02/2022 of completion)Competitions table should have the following columns (id, name, duration, expires (value = now + duration), current_reward, starting_reward, join_fee, current_participants, min_participants, paid_out (boolean default false), did_calc (boolean default false), min_score, first_place_per, second_place_per, third_place_per, cost_to_create, created_by (user_id ref), created, modified)
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/02/2022 of completion) User will be able to create a competition
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/05/2022 of completion) Each new participant causes the Reward value to increase by 50% of the joining fee rounded up (i.e., at least 1)
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/05/2022 of completion) Have a page where the User can see active competitions (not expired)
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/05/2022 of completion) Create an association table CompetitionParticipants (id, comp_id, user_id, created, modified)
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/03/2022 of completion)User can join active competitions
+      -  Link to related .md file: [Link Name](link url)
+  - [ ] \(07/03/2022 of completion) Create function that calculates competition winners (clearly comment each step in the code)
+      -  Link to related .md file: [Link Name](link url)
 - Milestone 4
   - (duplicate template here for Milestone 1 features)
 
