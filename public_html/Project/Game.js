@@ -63,7 +63,6 @@ class Enemy{
 let animationId
 let score = 0
 function save(){
-    username = '@Session["UserName"]';
     $.ajax({
         method: "POST",
         url: "save_scores.php",
