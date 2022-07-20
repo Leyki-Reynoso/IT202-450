@@ -1,3 +1,3 @@
 ALTER TABLE Users
-ADD Credits INT NOT NULL
+ADD Credits float NOT NULL
 DEFAULT 0

@@ -49,9 +49,9 @@
   - [X] \(07/17/2022 of completion) Create a Homepage (i.e., index.php)
       -  Link to related .md file: [Link Name](link url)
 - Milestone 3
-  - [ ] \(07/01/2022 of completion) Users will have credits associated with their account.
+  - [X] \(07/18/2022 of completion) Users will have credits associated with their account.
       -  Link to related .md file: [Link Name](link url)
-  - [ ] \(07/01/2022 of completion) Create a CreditsHistory table (id, user_id, credit_diff, reason, created, modified)
+  - [X] \(07/18/2022 of completion) Create a CreditsHistory table (id, user_id, credit_diff, reason, created, modified)
       -  Link to related .md file: [Link Name](link url)
   - [ ] \(07/02/2022 of completion)Competitions table should have the following columns (id, name, duration, expires (value = now + duration), current_reward, starting_reward, join_fee, current_participants, min_participants, paid_out (boolean default false), did_calc (boolean default false), min_score, first_place_per, second_place_per, third_place_per, cost_to_create, created_by (user_id ref), created, modified)
       -  Link to related .md file: [Link Name](link url)

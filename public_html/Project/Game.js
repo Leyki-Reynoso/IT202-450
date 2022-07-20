@@ -66,7 +66,7 @@ function save(){
     $.ajax({
         method: "POST",
         url: "save_scores.php",
-        data: { text: score}
+        data: {text: score}
       }).done(function() {
         confirm("Score saved");
       });
