@@ -1,13 +1,14 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php");
+is_logged_in(true);
 ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<div id = "profile">
-<form onsubmit="return validate(this)" method="POST">
+<div id = "competition">
+<form onsubmit="return validate(this)" method="POST" action = "./insert_into_competition.php">
     <div>
-        <label for="credits">starting reward of competition</label>
-        <input type="text" name="credits" required />
+        <label for="reward">starting reward of competition</label>
+        <input type="text" name="reward" required />
     </div>
     <div>
         <label for="name">Name of the competition</label>
@@ -27,7 +28,7 @@ require(__DIR__ . "/../../partials/nav.php");
     </div>
     <div>
         <label for="duration">Duration of competition</label>
-        <input type="password" id="pw" name="duration" required/>
+        <input type="Number" name="duration" required/>
     </div>
     <div>
         <label for="cost">Cost to join</label>
@@ -43,6 +44,7 @@ require(__DIR__ . "/../../partials/nav.php");
     </div>
     <input type="submit" value="Register" />
 </form>
+</div>
 <script>
     function validate(form) {
         //TODO 1: implement JavaScript validation
@@ -82,7 +84,7 @@ require(__DIR__ . "/../../partials/nav.php");
         }
         $.ajax({
         method: "POST",
-        url: "retreive_credit.php",
+        url: "retrive_credit.php",
         data: {text: "credit"}
         }).done(function(response) {
             if(response != price)
@@ -97,8 +99,8 @@ require(__DIR__ . "/../../partials/nav.php");
         }
         return isValid;
     }
+
 </script>
-</div>
 <?php
 require(__DIR__ . "/../../partials/flash.php");
 ?>
