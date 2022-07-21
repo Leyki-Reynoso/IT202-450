@@ -34,6 +34,14 @@ nav li a{
     display: block;
     transition: 250ms background-color;
 }
+#double_line{
+    text-decoration: none;
+    color: white;
+    line-height: 50px;
+    display: block;
+    transition: 250ms background-color;
+    line-height: 25px;
+}
 li a:hover{
     background-color: skyblue;
     color: black;
@@ -58,7 +66,6 @@ div li a{
     line-height: 50px;
     display: block;
     transition: 250ms background-color;
-
 }
 form div{
     padding: 20px 10px 10px 15px;
