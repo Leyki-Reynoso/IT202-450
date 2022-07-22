@@ -16,7 +16,8 @@ is_logged_in(true);
                 else{
                     $name = $row['name'];
                     $expires = $row['expires'];
-                    echo $expires.str_repeat('&nbsp;', 10).$name."<br>";
+                    echo $expires.str_repeat('&nbsp;', 10).$name.str_repeat('&nbsp;', 10)."<a href=join_competition.php>join</a>"."<br>";
+                    "<br>";
                     
                 }
             }
@@ -28,4 +29,3 @@ is_logged_in(true);
             }
         ?>
     </div>
-</div>
