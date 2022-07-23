@@ -35,12 +35,18 @@ if (isset($_SESSION["user"])) {
     }
     //check all conditions are met
     if(array_sum($arr) == 3){ 
+        //insert participant
         $params3 = [":user_id" => get_user_id(), ":id" => $id];
         $stmt = $db->prepare("INSERT INTO CompetitionParticipants (comp_id, user_id) VALUES(:id, :user_id)");
         $stmt->execute($params3);
+        //update number of participants
+        $stmt = $db->prepare("UPDATE Competitions SET current_participants = (SELECT COUNT(id) FROM CompetitionParticipants) WHERE id = :id");
+        $stmt->execute($params);
+        //calculate and update reward
+        $stmt = $db->prepare("UPDATE Competitions SET current_reward = (SELECT (starting_reward+CEILING(join_fee/2)*current_partcipants) WHERE id = :id) WHERE id = :id");
+        $stmt->execute($params);        
     }
-    //do calculations for the reward
-
+    //do calculations for the reward+
     return $arr;
 }
 ?>

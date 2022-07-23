@@ -49,7 +49,21 @@ is_logged_in(true);
         data: {text: id},
         }).done(function(reponse){
             //use the array to output the errors
-
+            if(reponse[0] == 0)
+            {
+                flash("competition does not exists","warning")
+            }
+            if(reponse[1] == 0)
+            {
+                flash("user already registered","warning")
+            }
+            if(reponse[2] == 0)
+            {
+                flash("you don't have enough money","warning")
+            }
+            if(reponse[0] == 1 && reponse[1] == 1 && reponse[2] == 1){
+                flash("you have joined the competition","success")
+            }
         })
     }
 </script>
