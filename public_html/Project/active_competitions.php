@@ -2,6 +2,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <h1 id = "scores">Competitions</h1>
     <div id = "scores">
         <?php
@@ -37,33 +38,46 @@ is_logged_in(true);
         <label for="id">Write id of the competitoin you want to join</label>
         <input type="Number" name="id" required />
     </div>
-    <input type="submit" value="Join" />
+    <input type="submit" />
 </form>
 
 <script>
-    function join(form){
-        id = form.elements["id"].value
-        $.ajax({
-        method: "POST",
-        url: "join_competition.php",
-        data: {text: id},
-        }).done(function(reponse){
-            //use the array to output the errors
-            if(reponse[0] == 0)
-            {
-                flash("competition does not exists","warning")
-            }
-            if(reponse[1] == 0)
-            {
-                flash("user already registered","warning")
-            }
-            if(reponse[2] == 0)
-            {
-                flash("you don't have enough money","warning")
-            }
-            if(reponse[0] == 1 && reponse[1] == 1 && reponse[2] == 1){
-                flash("you have joined the competition","success")
-            }
-        })
+function join(form){
+    var isValid = true;
+    id = form.elements["id"].value;
+    var arr;
+    function set(response){
+        arr = response.split(" ");
     }
+    $.ajax({
+    method: "POST",
+    url: "join_competition.php",
+    data: {text: id},
+    async: false,
+    success: set,
+    })
+    if(arr[0] == 0)
+    {
+        flash("competition does not exists","warning");
+        isValid = false;
+    }
+    if(arr[1] == 0)
+    {
+        flash("user already registered","warning");
+        isValid = false;
+    }
+    if(arr[2] == 0)
+    {
+        flash("you don't have enough money","warning");
+        isValid = false;
+    }
+    if(isValid == true)
+    {
+        flash("you have joined","success");
+    }
+    return false;
+}
 </script>
+<?php
+require(__DIR__ . "/../../partials/flash.php");
+?>
