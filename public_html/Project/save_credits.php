@@ -10,7 +10,7 @@
         $stmt = $db->prepare("INSERT INTO CreditHistory (user_id, score, reason) VALUES(:user_id, :credit, :reason)");
         $stmt->execute($params);
         $params = [":user_id" => get_user_id(), ":credits" => $credit];
-        $stmt = $db->prepare("UPDATE Users set credits = (SELECT IFNULL(SUM(diff), 0) FROM CreditHistory WHERE user_id = :user_id) WHERE id = :user_id");
+        $stmt = $db->prepare("UPDATE Users set credits = (SELECT IF NULL(SUM(diff), 0) FROM CreditHistory WHERE user_id = :user_id) WHERE id = :user_id");
         $stmt->execute($params);
     }
 ?>
