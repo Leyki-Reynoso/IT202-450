@@ -61,31 +61,23 @@ session_start();
         $params1 = [":credit" => $reward[$id] * $first[$id], ":user_id" => $users['user_id'], ":name" => $name[$id]];
         $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) VALUES (:user_id,:credit,'Won :credit credits for 1st place in Competition :name')");
         $stmt->excute($params1);
-        //first place update user table
-        $params1 = [":user_id" => $users['user_id'], ":credits" => $reward[$id]];
-        $stmt = $db->prepare("UPDATE Users set credits = (SELECT IF NULL(SUM(diff), 0) FROM CreditHistory WHERE user_id = :user_id) WHERE id = :user_id");
-        $stmt->execute($params1);
         //second place creditHistory insertion
         $users = $stmt->fetch();
         $params2 = [":credit" => $reward[$id] * $second[$id], ":user_id" => $users['user_id'], ":name" => $name[$id]];
-        $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) VALUES (:user_id,:credit,'Won :credit credits for 2nd place in Competition :name')");
+        $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
+        VALUES (:user_id,:credit,'Won :credit credits for 2nd place in Competition :name')");
         $stmt->excute($params2);
-        //second place update user table
-        $params2 = [":user_id" => $users['user_id'], ":credits" => $reward[$id]];
-        $stmt = $db->prepare("UPDATE Users set credits = (SELECT IF NULL(SUM(diff), 0) FROM CreditHistory WHERE user_id = :user_id) WHERE id = :user_id");
-        $stmt->execute($params2);
         //third place creditHistory insertion
         $users = $stmt->fetch();
         $params3 = [":credit" => $reward[$id] * $third[$id], ":user_id" => $users['user_id'], ":name" => $name[$id]];
-        $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) VALUES (:user_id,:credit,'Won :credit credits for third place in Competition :name')");
+        $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
+        VALUES (:user_id,:credit,'Won :credit credits for third place in Competition :name')");
         $stmt->excute($params3);
-        //third place update user table
-        $params3 = [":user_id" => $users['user_id'], ":credits" => $reward[$id]];
-        $stmt = $db->prepare("UPDATE Users set credits = (SELECT IF NULL(SUM(diff), 0) FROM CreditHistory WHERE user_id = :user_id) WHERE id = :user_id");
-        $stmt->execute($params3);
-        //update did_cal cand paid_out
+        //update did_cal, paid_out, and credit of all players
+        update_credit();
         $params4 = [":id" => $id[$i]];
-        $stmt = $db->prepare("UPDATE Competitions SET did_calc = 1, SET paid_out = 1 WHERE id = :id");
+        $stmt = $db->prepare("UPDATE Competitions SET did_calc = 1, SET paid_out = 1
+        WHERE id = :id");
         $stmt->execute();
     }
 ?>

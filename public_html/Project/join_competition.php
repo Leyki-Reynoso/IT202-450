@@ -10,7 +10,7 @@ if (isset($_SESSION["user"])) {
     $id = (int)$_POST['text'];
     $db = getDB();
     $params = [":id" => $id];
-    $stmt = $db->prepare("SELECT id, join_fee from Competitions WHERE id = :id");
+    $stmt = $db->prepare("SELECT id, join_fee, name from Competitions WHERE id = :id");
     $stmt->execute($params);
     $row = $stmt->fetch();
     if(!$row)
@@ -42,6 +42,12 @@ if (isset($_SESSION["user"])) {
             $params3 = [":user_id" => get_user_id(), ":id" => $id];
             $stmt = $db->prepare("INSERT INTO CompetitionParticipants (comp_id, user_id) VALUES(:id, :user_id)");
             $stmt->execute($params3);
+            //charge credit
+            $users = $stmt->fetch();
+            $params2 = [":credit" => -1*$row2['credits'], ":user_id" => get_user_id(), ":name" => $row2['name']];
+            $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
+            VALUES (:user_id, :credit,'spent :credit credits to join :name')");
+            $stmt->excute($params2);
             //update number of participants
             $stmt = $db->prepare("UPDATE Competitions SET current_participants = (SELECT COUNT(id) FROM CompetitionParticipants) WHERE id = :id");
             $stmt->execute($params);
