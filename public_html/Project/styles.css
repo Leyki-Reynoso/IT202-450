@@ -91,6 +91,7 @@ body{
     background: linear-gradient(180deg, #2bff00, #bcffaf);
     height: 110%;
     width: 100%;
+    font-size: 20px;
 }
 #competition{
     display: flex;
@@ -106,8 +107,6 @@ form{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
 }
 #scores{
     display: flex;
@@ -115,6 +114,25 @@ form{
     justify-content: center;
     align-items: center;
 }
+#scoreform{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: inline;
+    justify-content: center;
+    align-items: center;
+}
+#srot{
+    display: flex;
+    flex-direction: inline;
+    justify-content: center;
+    align-items: center;
+}
+h2{
+    display: flex;
+    justify-content: center;
+
+} 
 input[type="text"], input[type ="Number"], input[type="password"], input[type="email"]{
     font-size: 16px;
     outline: none;
