@@ -47,7 +47,7 @@
                 if($row = $stmt->fetch())
                 {
                     if($row == null){
-                    flash("no scores to display", "success");
+                    flash("no scores to display", "warning");
                     }
                     else{
                         $date = $row['created'];

@@ -36,6 +36,7 @@ session_start();
             <li><a id = "double_line" href="<?php echo get_url('create_competition.php'); ?>">create competition</a></li>
             <li><a id = "double_line" href="<?php echo get_url('active_competitions.php'); ?>">see active competitions</a></li>
             <li><a id = "double_line" href="<?php echo get_url('all_competitions.php'); ?>">see all competitions</a></li>
+            <li><a id = "double_line" href="<?php echo get_url('Competitions_History.php'); ?>">Competition history</a></li>
         <?php endif; ?>
         <?php if (!is_logged_in()) : ?>
             <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
