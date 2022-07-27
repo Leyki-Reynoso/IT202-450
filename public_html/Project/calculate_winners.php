@@ -23,10 +23,10 @@ session_start();
         if($comp['current_participants'] >= 3)
         {
             array_push($id, $comp['id']);
-            array_push($reward, $comp['reward']);
-            array_push($first, $comp['first']);
-            array_push($second, $comp['second']);
-            array_push($third, $comp['third']);
+            array_push($reward, $comp['current_reward']);
+            array_push($first, $comp['first_place_per']);
+            array_push($second, $comp['second_place_per']);
+            array_push($third, $comp['third_place_per']);
             array_push($expires, $comp['expires']);
             array_push($created, $comp['created']);
             array_push($name, $comp['name']);
@@ -35,18 +35,19 @@ session_start();
         else{
         //update paid_out for competitions with not enough participants
             $params0 = [":id" => $comp['id']];
-            $stmt = $db->prepare("UPDATE Competitions 
+            $stmt2 = $db->prepare("UPDATE Competitions 
             SET did_calc = 1 
             WHERE id = :id");
-            $stmt->execute($params0);
+            $stmt2->execute($params0);
         }
     }
     //got through each of the 10 compeitions
     for ($i = 0; $i < sizeof($id); $i++) 
     {
+        echo($id[$i]);
         //get the winners from current competition
         $params = [":id" => $id[$i], ":expires" => $expires[$i], ":created" => $created[$i]];
-        $stmt = $db->prepare("SELECT user_id
+        $stmt3 = $db->prepare("SELECT user_id
         FROM Scores 
         WHERE user_id IN (
         SELECT user_id 
@@ -54,30 +55,30 @@ session_start();
         WHERE comp_id = :id) 
         AND  :created <= created <= :expires
         ORDER BY score DESC LIMIT 3");
-        $stmt->execute($params);
-
+        $stmt3->execute($params);
+        $users = $stmt3->fetch();
         //first place creditHistory insertion
-        $users = $stmt->fetch();
-        $params1 = [":credit" => $reward[$id] * $first[$id], ":user_id" => $users['user_id'], ":name" => $name[$id]];
-        $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) VALUES (:user_id,:credit,'Won :credit credits for 1st place in Competition :name')");
-        $stmt->excute($params1);
+        $params1 = [":credit" => $reward[$i] * $first[$i], ":user_id" => $users['user_id'], 
+        ":reason" => 'Won '.strval($reward[$i]*$first[$i]).' credits for first place in Competition '.$name[$i]];
+        $stmt4 = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) VALUES (:user_id,:credit, :reason)");
+        $stmt4->execute($params1);
         //second place creditHistory insertion
-        $users = $stmt->fetch();
-        $params2 = [":credit" => $reward[$id] * $second[$id], ":user_id" => $users['user_id'], ":name" => $name[$id]];
-        $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
-        VALUES (:user_id,:credit,'Won :credit credits for 2nd place in Competition :name')");
-        $stmt->excute($params2);
+        $users = $stmt4->fetch();
+        $params2 = [":credit" => $reward[$i] * $second[$i], ":user_id" => $users['user_id'], ":name" => "Won".$reward[$i]*$second[$i]."credits for third place in Competition".$name[$i]];
+        $stmt5 = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
+        VALUES (:user_id,:credit,:reason");
+        $stmt5->execute($params2);
         //third place creditHistory insertion
-        $users = $stmt->fetch();
-        $params3 = [":credit" => $reward[$id] * $third[$id], ":user_id" => $users['user_id'], ":name" => $name[$id]];
-        $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
-        VALUES (:user_id,:credit,'Won :credit credits for third place in Competition :name')");
-        $stmt->excute($params3);
+        $users = $stmt5->fetch();
+        $params3 = [":credit" => $reward[$i] * $third[$i], ":user_id" => $users['user_id'], "Won $reward[$i] credits for third place in Competition $name[$i]"];
+        $stmt6 = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
+        VALUES (:user_id,:credit, :reason)");
+        $stmt6->execute($params3);
         //update did_cal, paid_out, and credit of all players
         update_credit();
         $params4 = [":id" => $id[$i]];
-        $stmt = $db->prepare("UPDATE Competitions SET did_calc = 1, SET paid_out = 1
+        $stmt7 = $db->prepare("UPDATE Competitions SET did_calc = 1, SET paid_out = 1
         WHERE id = :id");
-        $stmt->execute();
+        $stmt7->execute();
     }
 ?>

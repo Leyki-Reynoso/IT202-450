@@ -2,10 +2,10 @@
     require_once(__DIR__ . "/../../partials/nav.php");
 ?>
 <?php 
-    for($i  = 0; $i <= 30; $i++)
+    for($i  = 0; $i < 4; $i++)
     {
-        $db = getDB();
-        $user = rand(19,21);
+            $db = getDB();
+            $user = $i+19;
             $name = "comp".strval($i);
             $duration = 1;
             $starting_reward = 3;
@@ -36,6 +36,10 @@
             :first_place_per, :second_place_per, :third_place_per,
             :cost_to_create, :created_by)");
             $stmt->execute($params);
-            flash("submitted","success");
+            $params2 = [":credit" => -1*$cost_to_create, ":user_id" => $user, ":reason" => "created competion ".$name."for ".$cost_to_create." credits"];
+            $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
+            VALUES (:user_id, :credit, :reason)");
+            $stmt->execute($params2);
+            update_credit();
     }
 ?>

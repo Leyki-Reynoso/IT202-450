@@ -88,6 +88,8 @@ if (isset($_POST["save"])){
 $email = get_user_email();
 $username = get_username();
 ?>
+<!-- lr22 07/26/2022 -->
+<!-- display Credit: 0  in profile -->
 <span>Credit:</span><span id = "cred">0</span>
 
 <div id = "profile">
@@ -142,6 +144,8 @@ $username = get_username();
     </div>
 </div>
 <script>
+    //lr22 07/26/2022
+    //ajax call to credit/php
     $.ajax({
         method: "POST",
         url: "credit.php",

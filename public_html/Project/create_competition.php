@@ -38,6 +38,11 @@ is_logged_in(true);
             :cost_to_create, :created_by)");
             $stmt->execute($params);
             flash("submitted","success");
+            $params2 = [":credit" => -1*$cost_to_create, ":user_id" => get_user_id(), ":reason" => "created competion ".$name."for ".$cost_to_create." credits"];
+            $stmt = $db->prepare("INSERT CreditHistory (user_id, credit_diff, reason) 
+            VALUES (:user_id, :credit, :reason)");
+            $stmt->execute($params2);
+            update_credit();
         }
     }
 ?>
