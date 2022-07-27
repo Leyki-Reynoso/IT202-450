@@ -1,7 +1,6 @@
-
 <table><tr><td> <em>Assignment: </em> IT202 Milestone 3 Arcade Project</td></tr>
 <tr><td> <em>Student: </em> Leyki Reynoso jr(lr22)</td></tr>
-<tr><td> <em>Generated: </em> 7/27/2022 9:09:00 AM</td></tr>
+<tr><td> <em>Generated: </em> 7/27/2022 9:20:42 AM</td></tr>
 <tr><td> <em>Grading Link: </em> <a rel="noreferrer noopener" href="https://learn.ethereallab.app/homework/IT202-450-M22/it202-milestone-3-arcade-project/grade/lr22" target="_blank">Grading</a></td></tr></table>
 <table><tr><td> <em>Instructions: </em> <ol><li>Checkout Milestone3 branch</li><li>Create a new markdown file called milestone3.md</li><li>git add/commit/push immediate</li><li>Fill in the below deliverables</li><li>At the end copy the markdown and paste it into milestone3.md</li><li>Add/commit/push the changes to Milestone3</li><li>PR Milestone3 to dev and verify</li><li>PR dev to prod and verify</li><li>Checkout dev locally and pull changes to get ready for Milestone 4</li><li>Submit the direct link to this new milestone3.md file from your GitHub prod branch to Canvas</li></ol><p>Note: Ensure all images appear properly on GitHub and everywhere else. Images are only accepted from dev or prod, not localhost. All website links must be from prod (you can assume/infer this by getting your dev URL and changing dev to prod).</p></td></tr></table>
 <table><tr><td> <em>Deliverable 1: </em> User will have credits associated with their account </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="http://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
@@ -105,7 +104,7 @@
 <tr><td> <em>Sub-Task 7: </em> Briefly explain the code flow for the creation process</td></tr>
 <tr><td> <em>Response:</em> <p>A for is called that on Submit calls the function validate which cchecks<br>all the requirements that the data has to meet for the competition to<br>be created the data is then the php section of the code is<br>called to insert into the competition table.<br></p><br></td></tr>
 <tr><td> <em>Sub-Task 8: </em> Add a direct link to heroku prod for this file (create competition)</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/create_competition.php">https://lr22-prod.herokuapp.com/create_competition.php</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/Project/create_competition.php">https://lr22-prod.herokuapp.com/Project/create_competition.php</a> </td></tr>
 </table></td></tr>
 <table><tr><td> <em>Deliverable 5: </em> Each new participant causes the Reward value to increase by 50% of the joining fee rounded up </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="http://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add before and after screenshots of the Competition record in the DB when a user joins (showing the reward change)</td></tr>
@@ -126,7 +125,7 @@
 <tr><td> <em>Sub-Task 4: </em> Add related pull request link(s)</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wantley/IT202-450/pull/85">https://github.com/wantley/IT202-450/pull/85</a> </td></tr>
 <tr><td> <em>Sub-Task 5: </em> Add a direct link to heroku prod for this file (join competition)</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/active_competitions.php">https://lr22-prod.herokuapp.com/active_competitions.php</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/Project/active_competitions.php">https://lr22-prod.herokuapp.com/Project/active_competitions.php</a> </td></tr>
 </table></td></tr>
 <table><tr><td> <em>Deliverable 6: </em> Have a page where the user can see active competitions </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="http://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add screenshot of the active competitions page list with a few active competitions</td></tr>
@@ -144,7 +143,7 @@
 <tr><td> <em>Sub-Task 4: </em> Add related pull request link(s)</td></tr>
 <tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/wantley/IT202-450/pull/85">https://github.com/wantley/IT202-450/pull/85</a> </td></tr>
 <tr><td> <em>Sub-Task 5: </em> Add a direct link to heroku prod for this file (list competitions)</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/active_competitions.php">https://lr22-prod.herokuapp.com/active_competitions.php</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/Project/active_competitions.php">https://lr22-prod.herokuapp.com/Project/active_competitions.php</a> </td></tr>
 </table></td></tr>
 <table><tr><td> <em>Deliverable 7: </em> CompetitionParticipants table </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="http://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add a screenshot of the table with validate data in it</td></tr>
@@ -181,11 +180,11 @@
 </td></tr>
 </table></td></tr>
 <tr><td> <em>Sub-Task 4: </em> Add related pull request link(s)</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/active_competitions.php">https://lr22-prod.herokuapp.com/active_competitions.php</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/Project/active_competitions.php">https://lr22-prod.herokuapp.com/Project/active_competitions.php</a> </td></tr>
 <tr><td> <em>Sub-Task 5: </em> Briefly explain the logic/code for joining a competition and the involved steps</td></tr>
 <tr><td> <em>Response:</em> <p>from the active participation window there is a simple form that allows the<br>user to join a competition by typing the id of the competition and<br>submitting it.&nbsp;<div><br></div><div>The id is sent to a php file through an ajax POST<br>request.&nbsp;</div><div><br></div><div>the php file checks if the competition exists.&nbsp;</div><div><br></div><div>if the competition exist the file<br>checks if the user is signed up and if it has enough money.<br></div><div><br></div><div>If<br>all three conditions are met the user is inserted into the participation table,<br>the join_fee is charged to the user and the reward and current participants<br>of the competition are updated.</div><br></p><br></td></tr>
 <tr><td> <em>Sub-Task 6: </em> Add a direct link to heroku prod for this file (any join page)</td></tr>
-<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/active_competitions.php">https://lr22-prod.herokuapp.com/active_competitions.php</a> </td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://lr22-prod.herokuapp.com/Project/active_competitions.php">https://lr22-prod.herokuapp.com/Project/active_competitions.php</a> </td></tr>
 </table></td></tr>
 <table><tr><td> <em>Deliverable 9: </em> Create a function to calculate winners </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="http://via.placeholder.com/400x120/009955/fff?text=Complete"></td></tr>
 <tr><td><table><tr><td> <em>Sub-Task 1: </em> Add screenshots of the whole code process with the clear comments (ensure your ucid and date are shown)</td></tr>
