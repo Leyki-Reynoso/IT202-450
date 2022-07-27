@@ -2,6 +2,8 @@
 require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <?php
 if (isset($_POST["save"])){
     $email = se($_POST, "email", null, false);
@@ -86,6 +88,10 @@ if (isset($_POST["save"])){
 $email = get_user_email();
 $username = get_username();
 ?>
+<!-- lr22 07/26/2022 -->
+<!-- display Credit: 0  in profile -->
+<span>Credit:</span><span id = "cred">0</span>
+
 <div id = "profile">
     <form method="POST" onsubmit="return validate(this);">
         <div class="mb-3">
@@ -138,6 +144,15 @@ $username = get_username();
     </div>
 </div>
 <script>
+    //lr22 07/26/2022
+    //ajax call to credit/php
+    $.ajax({
+        method: "POST",
+        url: "credit.php",
+        data: {text: "0"}
+    }).done(function(response) {
+        document.getElementById("cred").innerHTML = response
+    });
     function validate(form) {
         let pw = form.newPassword.value;
         let con = form.confirmPassword.value;
