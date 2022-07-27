@@ -14,7 +14,7 @@
         $first_place_per = $_POST["first"];
         $second_place_per = $_POST["second"];
         $third_place_per = $_POST["third"];
-        $cost_to_create = 1+$_POST["cost"] +$_POST["participants"];
+        $cost_to_create = 1+$_POST["cost"] +$_POST["reward"];
         $creaded_by = get_user_id();
         //DATEADD(day, $duration, current_timestamp);
         $db = getDB();

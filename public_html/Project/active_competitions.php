@@ -6,12 +6,16 @@ is_logged_in(true);
 <h1 id = "scores">Competitions</h1>
     <div id = "scores">
         <?php
+            //lr22 07/27/2022
+            //get all the info to display
             $db = getDB();
-            $stmt = $db->prepare("SELECT expires, name, id FROM Competitions ORDER BY expires DESC LIMIT 10");
+            $stmt = $db->prepare("SELECT expires, name, id FROM Competitions WHERE expires > current_timestamp 
+            ORDER BY expires DESC LIMIT 10");
             $stmt->execute();
             echo "ID".str_repeat('&nbsp;', 10)."Expiration date".str_repeat('&nbsp;', 19)."Name <br><br>";
             if($row = $stmt->fetch())
             {
+
                 if($row == null){
                 flash("no scores to display", "success");
                 }
@@ -19,11 +23,12 @@ is_logged_in(true);
                     $id = $row['id'];
                     $name = $row['name'];
                     $expires = $row['expires'];
+                    //diplay the the first set of info as a table
                     echo $id.str_repeat('&nbsp;', 10).$expires.str_repeat('&nbsp;', 10).$name.str_repeat('&nbsp;', 10)."<br>";
-                    "<br>";
-                    
+                    "<br>";   
                 }
             }
+            //diplay the other set of info
             while($row = $stmt->fetch())
             {
                 $id = $row['id'];
