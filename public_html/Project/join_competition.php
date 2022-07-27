@@ -57,7 +57,7 @@ if (isset($_SESSION["user"])) {
             $stmt->execute($params);
             //lr22 07//26/2022
             //calculate and update reward
-            $stmt = $db->prepare("SELECT (current_reward+(CEILING(join_fee/2)*current_participants)) AS 'total'
+            $stmt = $db->prepare("SELECT (starting_reward+(CEILING(join_fee/2)*current_participants)) AS 'total'
             FROM Competitions 
             WHERE id = :id");
             $stmt->execute($params);     

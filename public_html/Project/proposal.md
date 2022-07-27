@@ -65,7 +65,7 @@
       -  Link to related .md file: [Link Name](link url)
   - [X] \(07/23/2022 of completion)User can join active competitions
       -  Link to related .md file: [Link Name](link url)
-  - [ ] \(07/03/2022 of completion) Create function that calculates competition winners (clearly comment each step in the code)
+  - [X] \(07/27/2022 of completion) Create function that calculates competition winners (clearly comment each step in the code)
       -  Link to related .md file: [Link Name](link url)
 - Milestone 4
   - (duplicate template here for Milestone 1 features)
