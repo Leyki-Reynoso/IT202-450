@@ -22,7 +22,7 @@ is_logged_in(true);
             $db = getDB();
             $params = [":name" => $name, ":duration" => $duration,
             ":current_reward" => $starting_reward,":starting_reward" => $starting_reward, ":join_fee" => $join_fee,
-            ":current_participants" => $min_participants, ":min_participans"=>$min_participants, ":paid_out" => 0,
+            ":current_participants" => 0, ":min_participans"=>$min_participants, ":paid_out" => 0,
             ":did_calc" => 0 , ":min_score" => $min_score,":first_place_per" => $first_place_per, 
             "second_place_per" => $second_place_per, ":third_place_per" => $third_place_per, ":cost_to_create" => $cost_to_create,
             ":created_by" => $creaded_by];
