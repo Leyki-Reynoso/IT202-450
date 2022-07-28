@@ -35,49 +35,48 @@ table{
                 <th>Name</th>
             </tr>
         <?php
-            if(array_key_exists('week', $_POST)) {
-                scoreBoard('next');
-            }
-            else if(array_key_exists('month', $_POST)) {
-                scoreBoard('previous');
+            $db = getDB();
+            $offset = 10;
+            $stmt = $db->prepare("SELECT COUNT(id) FROM Competitions WHERE expires > current_timestamp ");
+            $stmt->execute();
+            $count = $stmt->fetch();
+            $tabs = ceil($count['COUNT(id)']/$offset);
+            $db = getDB();
+            if(!isset($_GET['page'])){
+                $page = 1;
             }
             else{
-                scoreBoard('none');
+                $page = $_GET['page'];
             }
-            function scoreBoard($response)
-            {
-            $start = 0;
-            //get the scores
-            if($response == 'next'){
-                $start = $start+10;
-                
-            }
-            else if($response == 'previous'){
-                $start = $start-10;
-            }
-            $db = getDB();
-            $finish = $start+10;
-            $params = [":s" => $start, ":f" => $finish];
+            //get the score
+            $params = [":f" => $offset, ":s" => ($page-1)*10];
             $stmt = $db->prepare("SELECT expires, name, id FROM Competitions WHERE expires > current_timestamp 
-            ORDER BY expires DESC LIMIT :s , :f");
+            ORDER BY expires DESC LIMIT :s, :f");
+            foreach ($params as $key => $value)
+            {
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindValue($key, $value, $type);
+            }
+            $params = null;
+
             $stmt->execute($params);
-            while($row = $stmt->fetch()){
-                ?>
+            while($row = $stmt->fetch()){?>
                 <tr>
                 <td><?php echo $row['id'];?></td>
                 <td><?php echo $row['expires'];?></td>
                 <td><?php echo $row['name'];?></td>
                 </tr>
-        <?php } 
-        }?>
+        <?php }         ?>
         </table>
     </div>
-    <form method="post">
-                <input type="submit" name="week"
-                        class="button" value="next" />
-                <input type="submit" name="life"
-                        class="button" value="previous" />
-        </form>
+    <div id = "paging">
+        <?php
+            for($page = 1; $page<=$tabs; $page++)
+            {
+                echo '<li><a href="active_competitions.php?page='.$page.'">'. $page .'</a></li>';
+            }
+        ?>
+    </div>
     <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
         <div>
             <label for="ids">Write id of the competition you want to see</label>

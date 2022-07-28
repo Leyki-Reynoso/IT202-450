@@ -102,6 +102,34 @@ body{
     height: 122%;
     width: 100%;
 }
+#paging{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    padding: 5px;
+    text-align:center;
+}
+#paging li {
+    list-style-type: none;
+    width: 100px;
+    float: left;
+    text-align: center;
+}
+#paging li a{
+    font-size:20px;
+    text-decoration: none;
+    color: white;
+    line-height: 30px;
+    background-color: black;
+    transition: 250ms background-color;
+}
+#paging a:hover{
+    background-color: skyblue;
+    color: black;
+    transition-delay: 0ms;
+}
 form{
     display: flex;
     flex-direction: column;
