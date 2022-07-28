@@ -112,43 +112,6 @@ table{
     </form>
 
 </div>
-<script>
-function join(form){
-    var isValid = true;
-    id = form.elements["id"].value;
-    var arr;
-    function set(response){
-        arr = response.split(" ");
-    }
-    $.ajax({
-    method: "POST",
-    url: "join_competition.php",
-    data: {text: id},
-    async: false,
-    success: set,
-    })
-    if(arr[0] == 0)
-    {
-        flash("competition does not exists","warning");
-        isValid = false;
-    }
-    if(arr[1] == 0)
-    {
-        flash("user already registered","warning");
-        isValid = false;
-    }
-    if(arr[2] == 0)
-    {
-        flash("you don't have enough money","warning");
-        isValid = false;
-    }
-    if(isValid == true)
-    {
-        flash("you have joined","success");
-    }
-    return false;
-}
-</script>
 <?php
 require(__DIR__ . "/../../partials/flash.php");
 ?>
