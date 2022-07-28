@@ -35,21 +35,47 @@ table{
                 <th>Name</th>
             </tr>
         <?php
-            //get the scores
             $db = getDB();
+            $offset = 10;
+            $stmt = $db->prepare("SELECT COUNT(id) FROM Competitions WHERE expires > current_timestamp ");
+            $stmt->execute();
+            $count = $stmt->fetch();
+            $tabs = ceil($count['COUNT(id)']/$offset);
+            $db = getDB();
+            if(!isset($_GET['page'])){
+                $page = 1;
+            }
+            else{
+                $page = $_GET['page'];
+            }
+            //get the score
+            $params = [":f" => $offset, ":s" => ($page-1)*10];
             $stmt = $db->prepare("SELECT expires, name, id FROM Competitions WHERE expires > current_timestamp 
-            ORDER BY expires DESC LIMIT 10");
-            $stmt->execute();
-            $stmt->execute();
-            while($row = $stmt->fetch()){
-                ?>
+            ORDER BY expires DESC LIMIT :s, :f");
+            foreach ($params as $key => $value)
+            {
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindValue($key, $value, $type);
+            }
+            $params = null;
+
+            $stmt->execute($params);
+            while($row = $stmt->fetch()){?>
                 <tr>
                 <td><?php echo $row['id'];?></td>
                 <td><?php echo $row['expires'];?></td>
                 <td><?php echo $row['name'];?></td>
                 </tr>
-        <?php } ?>
+        <?php }         ?>
         </table>
+    </div>
+    <div id = "paging">
+        <?php
+            for($page = 1; $page<=$tabs; $page++)
+            {
+                echo '<li><a href="active_competitions.php?page='.$page.'">'. $page .'</a></li>';
+            }
+        ?>
     </div>
     <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
         <div>

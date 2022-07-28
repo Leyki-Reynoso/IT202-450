@@ -76,7 +76,7 @@
                     echo $date.str_repeat('&nbsp;', 60).$score.str_repeat('&nbsp;', 5)."<br><br>";
                 }
             }
-        ?>
+    ?>
             <form method="post">
                 <input type="submit" name="week"
                         class="button" value="week" />
