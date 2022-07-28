@@ -35,12 +35,32 @@ table{
                 <th>Name</th>
             </tr>
         <?php
+            if(array_key_exists('week', $_POST)) {
+                scoreBoard('next');
+            }
+            else if(array_key_exists('month', $_POST)) {
+                scoreBoard('previous');
+            }
+            else{
+                scoreBoard('none');
+            }
+            function scoreBoard($response)
+            {
+            $start = 0;
             //get the scores
+            if($response == 'next'){
+                $start = $start+10;
+                
+            }
+            else if($response == 'previous'){
+                $start = $start-10;
+            }
             $db = getDB();
+            $finish = $start+10;
+            $params = [":s" => $start, ":f" => $finish];
             $stmt = $db->prepare("SELECT expires, name, id FROM Competitions WHERE expires > current_timestamp 
-            ORDER BY expires DESC LIMIT 10");
-            $stmt->execute();
-            $stmt->execute();
+            ORDER BY expires DESC LIMIT :s , :f");
+            $stmt->execute($params);
             while($row = $stmt->fetch()){
                 ?>
                 <tr>
@@ -48,9 +68,16 @@ table{
                 <td><?php echo $row['expires'];?></td>
                 <td><?php echo $row['name'];?></td>
                 </tr>
-        <?php } ?>
+        <?php } 
+        }?>
         </table>
     </div>
+    <form method="post">
+                <input type="submit" name="week"
+                        class="button" value="next" />
+                <input type="submit" name="life"
+                        class="button" value="previous" />
+        </form>
     <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
         <div>
             <label for="ids">Write id of the competition you want to see</label>
