@@ -1,5 +1,10 @@
 <?php 
     require_once(__DIR__ . "/../../partials/nav.php");
+
+    //TODO save scores
+    if (!isset($_SESSION["user"])) {
+        flash("you are not logged in. Your score won't be saved","warning");
+    }
 ?>
 
 <html>
@@ -89,3 +94,6 @@
     </body>
 </div>
 </html>
+<?php
+require_once(__DIR__ . "/../../partials/flash.php");
+?>

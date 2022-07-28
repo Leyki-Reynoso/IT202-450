@@ -11,6 +11,10 @@
         flash("Successfully saved!", "success");
 
         error_log("Session data: " . var_export($_SESSION, true));
+        echo("saved");
+    }
+    else{
+        echo "not saved";
     }
 ?>
 <?php

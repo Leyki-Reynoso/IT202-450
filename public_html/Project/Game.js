@@ -67,8 +67,13 @@ function save(){
         method: "POST",
         url: "save_scores.php",
         data: {text: score}
-      }).done(function() {
-        confirm("Score saved");
+      }).done(function(response) {
+        if(response == "saved"){
+            confirm("Score saved");
+        }
+        else{
+            alert("you are not logged in, score wasn't saved")
+        }
       });
 }
 function gameOver(){

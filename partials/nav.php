@@ -41,6 +41,7 @@ session_start();
         <?php if (!is_logged_in()) : ?>
             <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
             <li><a href="<?php echo get_url('register.php'); ?>">Register</a></li>
+            <li><a href="<?php echo get_url('Game_menu.php'); ?>">Game</a></li>
         <?php endif; ?>
         <?php if (has_role("Admin")) : ?>
             <li><a href="<?php echo get_url('admin/create_role.php'); ?>">Create Role</a></li>
