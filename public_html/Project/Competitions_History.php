@@ -40,10 +40,31 @@ table{
         if (isset($_SESSION["user"])) {
             //get the scores
             $db = getDB();
-            $params = [":id" => get_user_id()];
+            $offset = 10;
+            $param = [":id" => get_user_id()];
+            $stmt = $db->prepare("SELECT COUNT(id) FROM Competitions 
+            WHERE id IN (SELECT comp_id FROM CompetitionParticipants WHERE user_id = :id)");
+            $stmt->execute($param);
+            $count = $stmt->fetch();
+            $tabs = ceil($count['COUNT(id)']/$offset);
+            $db = getDB();
+            if(!isset($_GET['page'])){
+                $page = 1;
+            }
+            else{
+                $page = $_GET['page'];
+            }
+            //get the score
+            $params = [":f" => $offset, ":s" => ($page-1)*10,":id" => get_user_id()];
             $stmt = $db->prepare("SELECT id, name, current_participants, current_reward, expires, created_by 
             FROM Competitions WHERE id IN (SELECT comp_id FROM CompetitionParticipants WHERE user_id = :id)  
-            ORDER BY expires DESC LIMIT 10");
+            ORDER BY expires DESC LIMIT :s, :f");
+            foreach ($params as $key => $value)
+            {
+                $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                $stmt->bindValue($key, $value, $type);
+            }
+            $params = null;           
             $stmt->execute($params);
             while($row = $stmt->fetch()){
                 if($row['created_by'] != get_user_id())
@@ -74,6 +95,14 @@ table{
         }?>
         </table>
     </div>
+    <div id = "paging">
+        <?php
+            for($page = 1; $page<=$tabs; $page++)
+            {
+                echo '<li><a href="Competitions_History.php?page='.$page.'">'. $page .'</a></li>';
+            }
+        ?>
+    </div>
     <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
         <div>
             <label for="ids">Write id of the competition you want to see</label>
@@ -82,13 +111,6 @@ table{
         <input type="submit" />
     </form>
 
-    <form onsubmit="return join(this)" method="POST">
-        <div>
-            <label for="id">Write id of the competition you want to join</label>
-            <input type="Number" name="id" required />
-        </div>
-        <input type="submit" />
-    </form>
 </div>
 <script>
 function join(form){

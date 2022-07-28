@@ -77,18 +77,17 @@ table{
             }
         ?>
     </div>
-    <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
-        <div>
-            <label for="ids">Write id of the competition you want to see</label>
-            <input type="Number" name="ids" required />
-        </div>
-        <input type="submit" />
-    </form>
-
     <form onsubmit="return join(this)" method="POST">
         <div>
             <label for="id">Write id of the competition you want to join</label>
             <input type="Number" name="id" required />
+        </div>
+        <input type="submit" />
+    </form>
+    <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
+        <div>
+            <label for="ids">Write id of the competition you want to see</label>
+            <input type="Number" name="ids" required />
         </div>
         <input type="submit" />
     </form>
