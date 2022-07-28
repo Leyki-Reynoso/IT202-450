@@ -38,6 +38,7 @@ table{
         {
             $comp = false;
             $name = "competition does not exist";
+            flash("competition does not exis", "warning");
         }
         else{
             $expires = $row['expires'];
