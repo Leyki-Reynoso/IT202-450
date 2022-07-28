@@ -37,7 +37,7 @@ table{
         <?php
             $db = getDB();
             $offset = 10;
-            $stmt = $db->prepare("SELECT COUNT(id) FROM Competitions WHERE expires > current_timestamp ");
+            $stmt = $db->prepare("SELECT COUNT(id) FROM Competitions");
             $stmt->execute();
             $count = $stmt->fetch();
             $tabs = ceil($count['COUNT(id)']/$offset);
@@ -50,7 +50,7 @@ table{
             }
             //get the score
             $params = [":f" => $offset, ":s" => ($page-1)*10];
-            $stmt = $db->prepare("SELECT expires, name, id FROM Competitions WHERE expires > current_timestamp 
+            $stmt = $db->prepare("SELECT expires, name, id FROM Competitions 
             ORDER BY expires DESC LIMIT :s, :f");
             foreach ($params as $key => $value)
             {
@@ -60,30 +60,24 @@ table{
             $params = null;
 
             $stmt->execute($params);
-            while($row = $stmt->fetch()){?>
+            while($row = $stmt->fetch()){
+                ?>
                 <tr>
                 <td><?php echo $row['id'];?></td>
                 <td><?php echo $row['expires'];?></td>
                 <td><?php echo $row['name'];?></td>
                 </tr>
-        <?php }         ?>
+        <?php } ?>
         </table>
     </div>
     <div id = "paging">
         <?php
             for($page = 1; $page<=$tabs; $page++)
             {
-                echo '<li><a href="active_competitions.php?page='.$page.'">'. $page .'</a></li>';
+                echo '<li><a href="all_competitions.php?page='.$page.'">'. $page .'</a></li>';
             }
         ?>
     </div>
-    <form onsubmit="return join(this)" method="POST">
-        <div>
-            <label for="id">Write id of the competition you want to join</label>
-            <input type="Number" name="id" required />
-        </div>
-        <input type="submit" />
-    </form>
     <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
         <div>
             <label for="ids">Write id of the competition you want to see</label>
@@ -92,43 +86,7 @@ table{
         <input type="submit" />
     </form>
 </div>
-<script>
-function join(form){
-    var isValid = true;
-    id = form.elements["id"].value;
-    var arr;
-    function set(response){
-        arr = response.split(" ");
-    }
-    $.ajax({
-    method: "POST",
-    url: "join_competition.php",
-    data: {text: id},
-    async: false,
-    success: set,
-    })
-    if(arr[0] == 0)
-    {
-        flash("competition does not exists","warning");
-        isValid = false;
-    }
-    if(arr[1] == 0)
-    {
-        flash("user already registered","warning");
-        isValid = false;
-    }
-    if(arr[2] == 0)
-    {
-        flash("you don't have enough money","warning");
-        isValid = false;
-    }
-    if(isValid == true)
-    {
-        flash("you have joined","success");
-    }
-    return false;
-}
-</script>
+
 <?php
 require(__DIR__ . "/../../partials/flash.php");
 ?>
