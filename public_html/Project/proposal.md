@@ -18,57 +18,73 @@
 
 - Milestone 1
     - [X] \(07/01/2022 of completion) User will be able to register a new account
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
   - [X] \(07/01/2022 of completion) User will be able to login to their account (given they enter the correct credentials)
       -  Link to related .md file: [Link Name](link url)
   - [X] \(07/02/2022 of completion)User will be able to logout
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
   - [X] \(07/02/2022 of completion) Basic security rules implemented
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
   - [X] \(07/05/2022 of completion) Basic Roles implemented
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
   - [X] \(07/05/2022 of completion) Site should have basic styles/theme applied; everything should be styled
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
   - [X] \(07/05/2022 of completion) Any output messages/errors should be “user friendly”
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
   - [X] \(07/03/2022 of completion)User will be able to see their profile
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
   - [X] \(07/03/2022 of completion) User will be able to edit their profile
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone1](milestone1.md)
 - Milestone 2
   - [X] \(07/17/2022 of completion) What game will you be doing?
         [asteroids simplified]
         Briefly describe it.
         [you are in the middle of the screen and you shoot circles that come your way]
+      -  Link to related .md file: [Milestone2](milestone2.md)
   - [X] \(07/01/2022 of completion) The system will save the user’s score at the end of the game only if the user is logged in
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone2](milestone2.md)
   - [X] \(07/17/2022 of completion) The user will be able to see their latest 10 scores
-      -  Link to related .md file: [Link Name](link url)
+     -  Link to related .md file: [Milestone2](milestone2.md)
   - [X] \(07/17/2022 of completion) Create function(s) that output the following scoreboards
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone2](milestone2.md)
   - [X] \(07/17/2022 of completion) Create a Homepage (i.e., index.php)
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone2](milestone2.md)
 - Milestone 3
   - [X] \(07/18/2022 of completion) Users will have credits associated with their account.
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/18/2022 of completion) Create a CreditsHistory table (id, user_id, credit_diff, reason, created, modified)
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/18/2022 of completion)Competitions table should have the following columns (id, name, duration, expires (value = now + duration), current_reward, starting_reward, join_fee, current_participants, min_participants, paid_out (boolean default false), did_calc (boolean default false), min_score, first_place_per, second_place_per, third_place_per, cost_to_create, created_by (user_id ref), created, modified)
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/21/2022 of completion) User will be able to create a competition
-      -  Link to related .md file: [Link Name](link url)
+     -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/21/2022 of completion) Each new participant causes the Reward value to increase by 50% of the joining fee rounded up (i.e., at least 1)
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/22/2022 of completion) Have a page where the User can see active competitions (not expired)
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/22/2022 of completion) Create an association table CompetitionParticipants (id, comp_id, user_id, created, modified)
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/23/2022 of completion)User can join active competitions
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
   - [X] \(07/27/2022 of completion) Create function that calculates competition winners (clearly comment each step in the code)
-      -  Link to related .md file: [Link Name](link url)
+      -  Link to related .md file: [Milestone3](milestone3.md)
 - Milestone 4
-  - (duplicate template here for Milestone 1 features)
+  - [X] \(07/27/2022 of completion) User can set their profile to be public or private (will need another column in Users table)
+      -  Link to related .md file: [Milestone4](milestone4.md)
+  - [X] \(07/27/2022 of completion) Anywhere a username is displayed should link to that user’s profile
+      -  Link to related .md file: [Milestone4](milestone4.md)
+  - [X] \(07/27/2022 of completion)Viewing an active or expired competition should show the top 10 scoreboard related to that competition
+      -  Link to related .md file: [Milestone4](milestone4.md)
+  - [X] \(07/27/2022 of completion)User will be able to see their competition history (active and expired)
+     -  Link to related .md file: [Milestone4](milestone4.md)
+  - [X] \(07/28/2022 of completion) Add pagination to the Active Competitions view
+      -  Link to related .md file: [Milestone4](milestone4.md)
+  - [X] \(07/28/2022 of completion) User’s score history will include pagination
+      -  Link to related .md file: [Milestone4](milestone4.md)
+  - [X] \(07/28/2022 of completion) User with the role of “admin” can edit a competition where paid_out = false
+      -  Link to related .md file: [Milestone4](milestone4.md)
+  - [X] \(07/28/2022 of completion)Game should be fully implemented/completed by this point
+      -  Link to related .md file: [Milestone4](milestone4.md)
 
 
 ### Intructions
