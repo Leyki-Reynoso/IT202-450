@@ -68,16 +68,20 @@ table{
         AND  :created <= created <= :expires
         ORDER BY score DESC LIMIT 10");
         $stmt2->execute($params);
+        $user_id = "";
+        $username = "";
         while($scores = $stmt2->fetch()){
             $score = true;
             $params1 = [":id" => $scores['user_id']];
             $stmt3 = $db->prepare("SELECT username
             FROM Users WHERE id = :id");
             $stmt3->execute($params1); 
-            $users = $stmt3->fetch()
+            $users = $stmt3->fetch();
+            $user_id = se($scores['user_id'],"user_id",0,false);
+            $username = se($users['username'],"username","",false);
             ?>
             <tr>
-            <td><?php echo $users['username'];?></td>
+            <td><?php include(__DIR__ . "/../../partials/profile_link.php"); ?></td>
             <td><?php echo $scores['score'];?></td>
             </tr>
     <?php } 
