@@ -47,7 +47,7 @@ session_start();
             <li><a href="<?php echo get_url('admin/create_role.php'); ?>">Create Role</a></li>
             <li><a href="<?php echo get_url('admin/list_roles.php'); ?>">List Roles</a></li>
             <li><a href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
-            <li><a id = "double_line" href="<?php echo get_url('admin/Alter_competitions.php'); ?>">Modify Comptitions</a></li>
+            <li><a id = "double_line" href="<?php echo get_url('admin/Alter_Competitions.php'); ?>">Modify Comptitions</a></li>
         <?php endif; ?>
         <?php if (is_logged_in()) : ?>
             <li><a href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
