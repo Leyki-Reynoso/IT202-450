@@ -70,7 +70,6 @@ function save(){
       }).done(function(response) {
         alert(response);
       });
-      });
 }
 function gameOver(){
     context.fillStyle = '#000000'
