@@ -68,12 +68,8 @@ function save(){
         url: "save_scores.php",
         data: {text: score}
       }).done(function(response) {
-        if(response == "saved"){
-            confirm("Score saved");
-        }
-        else{
-            alert("you are not logged in, score wasn't saved")
-        }
+        alert(response);
+      });
       });
 }
 function gameOver(){
