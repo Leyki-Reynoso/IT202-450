@@ -15,6 +15,4 @@
         echo "not saved";
     }
 ?>
-<?php
-require_once(__DIR__ . "/../../partials/flash.php");
-?>
+
