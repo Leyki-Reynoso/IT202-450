@@ -90,7 +90,7 @@ table{
             }
         ?>
     </div>
-    <form onsubmit="return true" action = "modify_Competition.php" method="POST">
+    <form onsubmit="return true" action = "modify_competition.php" method="POST">
         <div>
             <label for="ids">Write id of the competition you want to modify</label>
             <input type="Number" name="ids" required />
