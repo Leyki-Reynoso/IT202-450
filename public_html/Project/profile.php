@@ -1,17 +1,22 @@
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
+$user_id = (int)se($_GET, "id", get_user_id(), false);
+$isMe = $user_id == get_user_id();
+$isEdit = isset($_GET["edit"]);
+
+$db = getDB();
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <?php
-if (isset($_POST["save"])){
+if (isset($_POST["save"]) && $isMe && $isEdit){
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
-
-    $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
+    $vis = isset($_POST["vis"]) ? 1 : 0;
+    $params = [":email" => $email, ":username" => $username, ":id" => get_user_id(), ":vis" => $vis];
     $db = getDB();
-    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
+    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username, visibility = :vis where id = :id");
     try {
         $stmt->execute($params);
         flash("Profile saved", "success");
@@ -30,23 +35,6 @@ if (isset($_POST["save"])){
             echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
         }
     }
-    //select fresh data from table
-    $stmt = $db->prepare("SELECT id, email, username from Users where id = :id LIMIT 1");
-    try {
-        $stmt->execute([":id" => get_user_id()]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($user) {
-            //$_SESSION["user"] = $user;
-            $_SESSION["user"]["email"] = $user["email"];
-            $_SESSION["user"]["username"] = $user["username"];
-        } else {
-            flash("User doesn't exist", "danger");
-        }
-    } catch (Exception $e) {
-        flash("An unexpected error occurred, please try again", "danger");
-        //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
-    }
-
 
     //check/update password
     $current_password = se($_POST, "currentPassword", null, false);
@@ -81,68 +69,169 @@ if (isset($_POST["save"])){
         }
     }
 }
-?>
+//select fresh data from table
+$stmt = $db->prepare("SELECT id, email, username,visibility, created from Users where id = :id LIMIT 1");
+$isVisible = false;
+try {
+    $stmt->execute([":id" => $user_id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($user) {
+        if ($isMe) {
+            $_SESSION["user"]["email"] = $user["email"];
+            $_SESSION["user"]["username"] = $user["username"];
+        }
+        if (se($user, "visibility", 0, false) > 0) {
 
-
-<?php
-$email = get_user_email();
-$username = get_username();
+            $isVisible = true;
+        }
+        $email = se($user, "email", "", false);
+        $username = se($user, "username", "", false);
+        $joined = se($user, "created", "", false);
+    } else {
+        flash("User doesn't exist", "danger");
+    }
+} catch (Exception $e) {
+    flash("An unexpected error occurred, please try again", "danger");
+    //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+}
 ?>
 <!-- lr22 07/26/2022 -->
 <!-- display Credit: 0  in profile -->
 <span>Credit:</span><span id = "cred">0</span>
 
 <div id = "profile">
-    <form method="POST" onsubmit="return validate(this);">
-        <div class="mb-3">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="<?php se($email); ?>" />
-        </div>
-        <div class="mb-3">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" value="<?php se($username); ?>" />
-        </div>
-        <!-- DO NOT PRELOAD PASSWORD -->
-        <div class="mb-3">
-            <label for="cp">Current Password</label>
-            <input type="password" name="currentPassword" id="cp" />
-        </div>
-        <div class="mb-3">
-            <label for="np">New Password</label>
-            <input type="password" name="newPassword" id="np" />
-        </div>
-        <div class="mb-3">
-            <label for="conp">Confirm Password</label>
-            <input type="password" name="confirmPassword" id="conp" />
-        </div>
-        <input type="submit" value="Update Profile" name="save" />
-    </form>
-    
-    <h1 id = "scores">Scores</h1>
-    <div id = "scores">
-        <?php
-            $db = getDB();
-            $params = [":user_id" => get_user_id()];
-            $stmt = $db->prepare("SELECT score FROM Scores WHERE user_id = :user_id  ORDER BY created DESC LIMIT 10");
-            $stmt->execute($params);
-            if($row = $stmt->fetch())
-            {
-                if($row == null){
-                flash("no scores to display", "success");
-                }
-                else{
+    <h1>Profile</h1>
+
+    <?php if ($isMe && $isEdit) : ?>
+        <?php if ($isMe) : ?>
+            <a href="<?php echo get_url("profile.php"); ?>">View</a>
+        <?php endif; ?>
+        <form method="POST" onsubmit="return validate(this);">
+            <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
+            </div>
+            <div class="mb-3">
+                <div class="form-check form-switch">
+                    <input <?php if ($isVisible) {
+                                echo "checked";
+                            } ?> class="form-check-input" type="checkbox" role="switch" id="vis" name="vis">
+                    <label class="form-check-label" for="vis">Toggle Visibility</label>
+                </div>
+            </div>
+            <!-- DO NOT PRELOAD PASSWORD -->
+            <div class="mb-3">Password Reset</div>
+            <div class="mb-3">
+                <label class="form-label" for="cp">Current Password</label>
+                <input class="form-control" type="password" name="currentPassword" id="cp" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="np">New Password</label>
+                <input class="form-control" type="password" name="newPassword" id="np" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="conp">Confirm Password</label>
+                <input class="form-control" type="password" name="confirmPassword" id="conp" />
+            </div>
+            <input type="submit" class="mt-3 btn btn-primary" value="Update Profile" name="save" />
+        </form>
+    <?php else : ?>
+        <?php if ($isMe) : ?>
+            <a href="?edit">Edit</a>
+        <?php endif; ?>
+        <?php if ($isVisible || $isMe) : ?>
+            <div>
+                This is <?php se($username); ?>
+            </div>
+            <div>
+                Joined: <?php se($joined); ?>
+            </div>
+            <h1 id = "scores">top 10 Scores</h1>
+<div id = "scores">
+    <?php
+        $db = getDB();
+        $offset = 10;
+        $params = [":username" => $username];
+        $stmt = $db->prepare("SELECT COUNT(id) FROM Scores WHERE user_id IN( 
+        SELECT user_id 
+        FROM Users
+        WHERE username = :username)
+        ORDER BY score DESC LIMIT 10");
+        $stmt->execute($params);
+        $count = $stmt->fetch();
+        $tabs = ceil($count['COUNT(id)']/$offset);
+        $db = getDB();
+        if(!isset($_GET['page'])){
+             $page = 1;
+        }
+        else{
+            $page = $_GET['page'];
+        }
+        //get the score
+        $params = [":f" => $offset, ":s" => ($page-1)*10, ":username" => $username];
+        $stmt = $db->prepare("SELECT score FROM Scores WHERE user_id IN( 
+        SELECT user_id 
+        FROM Users
+        WHERE username = :username)
+        ORDER BY score DESC LIMIT :s, :f");
+        foreach ($params as $key => $value)
+        {
+            $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $stmt->bindValue($key, $value, $type);
+        }
+        $params = null;
+        $stmt->execute($params);
+        if($row = $stmt->fetch())
+        {
+            if($row == null){
+            flash("no scores to display", "success");
+            }
+            else{
+                $name = $row['score'];
+                echo "$name<br>";
+                while($row = $stmt->fetch())
+                {
                     $name = $row['score'];
                     echo "$name<br>";
                 }
             }
-            while($row = $stmt->fetch())
+        }
+    ?>
+</div>
+    <div id = "pagingw">
+        <?php
+            for($page = 1; $page<=$tabs; $page++)
             {
-                $name = $row['score'];
-                echo "$name<br>";
+                echo '<li><a href="profile.php?page='.$page.'">'. $page .'</a></li>';
             }
         ?>
     </div>
+
+        <?php else : ?>
+            Profile is private
+            <?php
+            $path = "home.php";
+            flash("Profile is private", "warning");
+                //https://www.php.net/manual/en/function.headers-sent.php#90160
+                /*headers are sent at the end of script execution otherwise they are sent when the buffer reaches it's limit and emptied */
+                if (!headers_sent()) {
+                    //php redirect
+                    die(header("Location: " . get_url($path)));
+                }
+                //javascript redirect
+                echo "<script>window.location.href='" . get_url($path) . "';</script>";
+                //metadata redirect (runs if javascript is disabled)
+                echo "<noscript><meta http-equiv=\"refresh\" content=\"0;url=" . get_url($path) . "\"/></noscript>";
+                die();
+            ?>
+        <?php endif; ?>
 </div>
+<?php endif; ?>
+
 <script>
     //lr22 07/26/2022
     //ajax call to credit/php

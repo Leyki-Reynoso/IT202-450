@@ -1,6 +1,12 @@
 <?php
-require(__DIR__ . "/../../partials/nav.php");
-is_logged_in(true);
+//note we need to go up 1 more directory
+//need ne pull request
+require(__DIR__ . "/../../../partials/nav.php");
+
+if (!has_role("Admin")) {
+    flash("You don't have permission to view this page", "warning");
+    die(header("Location: $BASE_PATH" . "/home.php"));
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,9 +43,10 @@ table{
         <?php
             $db = getDB();
             $offset = 10;
-            $stmt = $db->prepare("SELECT COUNT(id) FROM Competitions WHERE expires > current_timestamp ");
+            $stmt = $db->prepare("SELECT COUNT(id) FROM Competitions WHERE paid_out = 0");
             $stmt->execute();
-            $count = $stmt->fetch();
+            if($count = $stmt->fetch())
+            {
             $tabs = ceil($count['COUNT(id)']/$offset);
             $db = getDB();
             if(!isset($_GET['page'])){
@@ -50,7 +57,8 @@ table{
             }
             //get the score
             $params = [":f" => $offset, ":s" => ($page-1)*10];
-            $stmt = $db->prepare("SELECT expires, name, id FROM Competitions WHERE expires > current_timestamp 
+            $stmt = $db->prepare("SELECT expires, name, id FROM Competitions 
+            WHERE paid_out = 0
             ORDER BY expires DESC LIMIT :s, :f");
             foreach ($params as $key => $value)
             {
@@ -60,75 +68,37 @@ table{
             $params = null;
 
             $stmt->execute($params);
-            while($row = $stmt->fetch()){?>
+            while($row = $stmt->fetch()){
+                ?>
                 <tr>
                 <td><?php echo $row['id'];?></td>
                 <td><?php echo $row['expires'];?></td>
                 <td><?php echo $row['name'];?></td>
                 </tr>
-        <?php }         ?>
+        <?php } ?>
         </table>
     </div>
     <div id = "paging">
         <?php
             for($page = 1; $page<=$tabs; $page++)
             {
-                echo '<li><a href="active_competitions.php?page='.$page.'">'. $page .'</a></li>';
+                echo '<li><a href="Alter_competitions.php?page='.$page.'">'. $page .'</a></li>';
+            }
+            }
+            else{
+                flash("no modifiable competitions","warning");
             }
         ?>
     </div>
-    <form onsubmit="return join(this)" method="POST">
+    <form onsubmit="return true" action = "modify_competition.php" method="POST">
         <div>
-            <label for="id">Write id of the competition you want to join</label>
-            <input type="Number" name="id" required />
-        </div>
-        <input type="submit" />
-    </form>
-    <form onsubmit="return true" action = "Competition_Scoreboard.php" method="POST">
-        <div>
-            <label for="ids">Write id of the competition you want to see</label>
+            <label for="ids">Write id of the competition you want to modify</label>
             <input type="Number" name="ids" required />
         </div>
         <input type="submit" />
     </form>
 </div>
-<script>
-function join(form){
-    var isValid = true;
-    id = form.elements["id"].value;
-    var arr;
-    function set(response){
-        arr = response.split(" ");
-    }
-    $.ajax({
-    method: "POST",
-    url: "join_competition.php",
-    data: {text: id},
-    async: false,
-    success: set,
-    })
-    if(arr[0] == 0)
-    {
-        flash("competition does not exists","warning");
-        isValid = false;
-    }
-    if(arr[1] == 0)
-    {
-        flash("user already registered","warning");
-        isValid = false;
-    }
-    if(arr[2] == 0)
-    {
-        flash("you don't have enough money","warning");
-        isValid = false;
-    }
-    if(isValid == true)
-    {
-        flash("you have joined","success");
-    }
-    return false;
-}
-</script>
+
 <?php
-require(__DIR__ . "/../../partials/flash.php");
+    require(__DIR__ . "/../../../partials/flash.php");
 ?>

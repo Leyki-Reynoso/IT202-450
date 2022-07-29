@@ -67,8 +67,8 @@ function save(){
         method: "POST",
         url: "save_scores.php",
         data: {text: score}
-      }).done(function() {
-        confirm("Score saved");
+      }).done(function(response) {
+        alert(response);
       });
 }
 function gameOver(){
