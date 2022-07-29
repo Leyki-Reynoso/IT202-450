@@ -9,9 +9,11 @@
         $stmt = $db->prepare("INSERT INTO Scores (user_id, score) VALUES(:user_id, :score)");
         $stmt->execute($params);
         flash("Successfully saved!", "success");
+
         echo "saved";
     }
     else{
         echo "not saved";
     }
 ?>
+
