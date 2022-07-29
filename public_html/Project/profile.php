@@ -151,33 +151,66 @@ try {
                 Joined: <?php se($joined); ?>
             </div>
             <h1 id = "scores">top 10 Scores</h1>
-        <div id = "scores">
-        <?php
-            $db = getDB();
-            $params = [":username" => $username];
-            $stmt = $db->prepare("SELECT score FROM Scores WHERE user_id IN( 
-            SELECT user_id 
-            FROM Users
-            WHERE username = :username)
-            ORDER BY score DESC LIMIT 10");
-            $stmt->execute($params);
-            if($row = $stmt->fetch())
-            {
-                if($row == null){
-                flash("no scores to display", "success");
-                }
-                else{
+<div id = "scores">
+    <?php
+        $db = getDB();
+        $offset = 10;
+        $params = [":username" => $username];
+        $stmt = $db->prepare("SELECT COUNT(id) FROM Scores WHERE user_id IN( 
+        SELECT user_id 
+        FROM Users
+        WHERE username = :username)
+        ORDER BY score DESC LIMIT 10");
+        $stmt->execute($params);
+        $count = $stmt->fetch();
+        $tabs = ceil($count['COUNT(id)']/$offset);
+        $db = getDB();
+        if(!isset($_GET['page'])){
+             $page = 1;
+        }
+        else{
+            $page = $_GET['page'];
+        }
+        //get the score
+        $params = [":f" => $offset, ":s" => ($page-1)*10, ":username" => $username];
+        $stmt = $db->prepare("SELECT score FROM Scores WHERE user_id IN( 
+        SELECT user_id 
+        FROM Users
+        WHERE username = :username)
+        ORDER BY score DESC LIMIT :s, :f");
+        foreach ($params as $key => $value)
+        {
+            $type = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
+            $stmt->bindValue($key, $value, $type);
+        }
+        $params = null;
+        $stmt->execute($params);
+        if($row = $stmt->fetch())
+        {
+            if($row == null){
+            flash("no scores to display", "success");
+            }
+            else{
+                $name = $row['score'];
+                echo "$name<br>";
+                while($row = $stmt->fetch())
+                {
                     $name = $row['score'];
                     echo "$name<br>";
-                    while($row = $stmt->fetch())
-                    {
-                        $name = $row['score'];
-                        echo "$name<br>";
-                    }
                 }
             }
+        }
+    ?>
+</div>
+    <div id = "pagingw">
+        <?php
+            for($page = 1; $page<=$tabs; $page++)
+            {
+                echo '<li><a href="profile.php?page='.$page.'">'. $page .'</a></li>';
+            }
         ?>
-        </div>
+    </div>
+
         <?php else : ?>
             Profile is private
             <?php
